@@ -1,4 +1,18 @@
-export let cart = JSON.parse(localStorage.getItem('cart'));;
+export let cart = JSON.parse(localStorage.getItem('cart'));
+
+if (cart.length === 0) {
+    cart = [{
+        productId: "smid-algerian",
+        quantity: 2
+    }, {
+        productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+        quantity: 1
+    }];
+}
+
+function saveCartToLS() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
 
 export function addToCart (productId) {
     let matchingItem;
@@ -21,8 +35,7 @@ export function addToCart (productId) {
         });
     };
     
-    localStorage.setItem('cart', JSON.stringify(cart));
-    
+    saveCartToLS();
     console.log(cart);
 }
 
@@ -36,4 +49,5 @@ export function removeFromCart(productId) {
     });
 
     cart = newCart
+    saveCartToLS();
 };
