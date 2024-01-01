@@ -1,6 +1,6 @@
 export let cart = JSON.parse(localStorage.getItem('cart'));
 
-if (cart.length === 0) {
+if (!cart) {
     cart = [{
         productId: "smid-algerian",
         quantity: 2
@@ -51,3 +51,13 @@ export function removeFromCart(productId) {
     cart = newCart
     saveCartToLS();
 };
+
+export function CalculateCartQuantity() {
+    let cartQuantity = 0;
+        
+    cart.forEach( item => {
+        cartQuantity += item.quantity;
+    });
+
+    return cartQuantity;
+}
