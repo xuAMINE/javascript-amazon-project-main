@@ -59,35 +59,7 @@ products.forEach(product => {
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-
-function updateCartQuantity () {
-    CalculateCartQuantity();
-
-    const cartQuantity = CalculateCartQuantity();
-    const cartQuantityText = document.querySelector('.js-cart-quantity');
-    cartQuantity === 0 ? cartQuantityText.innerHTML = '' : cartQuantityText.innerHTML = cartQuantity;
-    
-}
-
 updateCartQuantity();
-
-const addedToCartTimeOut = {};
-
-function addedMessage (productId) {
-    const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
-    addedMessage.classList.add("added-to-cart-visible");
-
-    const previousTimeOutId = addedToCartTimeOut[productId];
-    if (previousTimeOutId) {
-        clearTimeout(previousTimeOutId);
-    };
-    
-    const myTimeOut = setTimeout( () => {
-        addedMessage.classList.remove("added-to-cart-visible");
-    }, 2000);
-
-    addedToCartTimeOut[productId] = myTimeOut;
-}
 
 document.querySelectorAll('.js-add-to-cart-button').forEach( button => {
     button.addEventListener('click', () => {
@@ -99,3 +71,30 @@ document.querySelectorAll('.js-add-to-cart-button').forEach( button => {
 
     })
 });
+
+function updateCartQuantity () {
+    CalculateCartQuantity();
+
+    const cartQuantity = CalculateCartQuantity();
+    const cartQuantityText = document.querySelector('.js-cart-quantity');
+    cartQuantity === 0 ? cartQuantityText.innerHTML = '' : cartQuantityText.innerHTML = cartQuantity;
+    
+}
+
+const addedToCartTimeOut = {};
+
+function addedMessage (productId) {
+    const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
+    addedMessage.classList.add('added-to-cart-visible');
+
+    const previousTimeOutId = addedToCartTimeOut[productId];
+    if (previousTimeOutId) {
+        clearTimeout(previousTimeOutId);
+    };
+    
+    const myTimeOut = setTimeout( () => {
+        addedMessage.classList.remove('added-to-cart-visible');
+    }, 2000);
+
+    addedToCartTimeOut[productId] = myTimeOut;
+}
