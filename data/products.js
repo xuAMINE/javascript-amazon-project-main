@@ -1,4 +1,17 @@
-export const products = [
+export const products = [{
+    id: "condia-lait-23451",
+    image: "images/products/condia lait.png",
+    name: "Condia Le Lait",
+    rating: {
+      stars: 5,
+      count: 1183
+    },
+    priceCents: 699,
+    keywords: [
+      "hlib",
+      "lahdha"
+    ]
+  },
   {
     id: "smid-algerian",
     image: "images/products/smid.png",
