@@ -1,32 +1,21 @@
 import { cart, removeFromCart, CalculateCartQuantity, updateQuantity, updateDeliveryOption } from '../../data/cart.js';
-import { products } from "../../data/products.js";
+import { getMatchingProduct } from "../../data/products.js";
 import { currancyFormat } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-import { deliveryOptions } from "../../data/deliveryOptions.js";
+import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
+import { renderPaymentSummary } from './paymentSummary.js';
 
-export function renderOprderSum() {
+export function renderOrderSum() {
     let orderSummaryHTML = '';
 
     cart.forEach(cartItem => {
-        const productid = cartItem.productId;
+        const productId = cartItem.productId;
         const productQuantity = cartItem.quantity;
 
-        let matchingItem;
-
-        products.forEach( product => {
-            if (product.id === productid) {
-                matchingItem = product;
-            }
-        });
+        const matchingItem = getMatchingProduct(productId)
 
         const deliveryOptionId = cartItem.deliveryOptionId;
-        let deliveryOption;
-
-        deliveryOptions.forEach( option => {
-            if (option.id === deliveryOptionId) {
-                deliveryOption = option;
-            }
-        });
+        const deliveryOption = getDeliveryOption(deliveryOptionId);
 
         const deliveryDay = dayjs().add(deliveryOption.days, 'days');
         const dateString = deliveryDay.format('dddd, MMM DD');
@@ -125,7 +114,7 @@ export function renderOprderSum() {
         link.addEventListener('click', () => {
             const { productId }= link.dataset;
             const updateLink = document.querySelector(`.js-cart-container-${productId}`);
-            updateLink.classList.add('is-editing-quantity')
+            updateLink.classList.add('is-editing-quantity');
         })
     })
 
@@ -177,7 +166,7 @@ export function renderOprderSum() {
             element.addEventListener('click', () => {
                 const { deliveryOptionId, productId } = element.dataset;
                 updateDeliveryOption(productId, deliveryOptionId);
-                renderOprderSum();
+                renderOrderSum();
             });
         });
 
