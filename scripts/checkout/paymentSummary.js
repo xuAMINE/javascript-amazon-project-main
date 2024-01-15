@@ -1,6 +1,6 @@
 import { cart } from "../../data/cart.js";
-import { products, getMatchingProduct } from "../../data/products.js";
-import { currancyFormat } from "../utils/money.js";
+import { getMatchingProduct } from "../../data/products.js";
+import currancyFormat from "../utils/money.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 
 export function renderPaymentSummary() {
