@@ -2,12 +2,14 @@ import { cart } from "../../data/cart.js";
 import { getMatchingProduct } from "../../data/products.js";
 import currancyFormat from "../utils/money.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
+import { CalculateCartQuantity } from "../../data/cart.js";
 
 export function renderPaymentSummary() {
     let matchingItems = [];
     let itemsCost = 0;
     let deliveryCosts = [];
     let deliveryCost = 0;
+    const cartQuantity = CalculateCartQuantity();
 
     cart.forEach(item => {
         const matichingItem = getMatchingProduct(item.productId);
@@ -35,7 +37,7 @@ export function renderPaymentSummary() {
         </div>
 
         <div class="payment-summary-row">
-            <div>Items (3):</div>
+            <div>Items (${cartQuantity}):</div>
             <div class="payment-summary-money js-order-cost-sum">$${currancyFormat(itemsCost)}</div>
         </div>
 
